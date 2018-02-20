@@ -46,6 +46,8 @@ def create_admin_user
   attributes = {
     password: password,
     password_confirmation: password,
+    first_name: 'Admin',
+    last_name: 'PM',
     email: email,
     login: email
   }
