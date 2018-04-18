@@ -1,6 +1,10 @@
 RSpec.feature 'Admin - Sign In', type: :feature do
+  let(:secret) { Spree::User.generate_otp_secret }
+
   background do
-    @user = create(:user, email: 'email@person.com')
+    @user = create(:user,
+                   email: 'email@person.com',
+                   otp_required_for_login: true)
     visit spree.admin_login_path
   end
 
@@ -12,6 +16,7 @@ RSpec.feature 'Admin - Sign In', type: :feature do
   scenario 'lets a user sign in successfully', js: true do
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'secret'
+    fill_in '2FA Code', with: @user.current_otp
     click_button 'Login'
 
     expect(page).to have_text 'Logged in successfully'
@@ -25,7 +30,7 @@ RSpec.feature 'Admin - Sign In', type: :feature do
     fill_in 'Password', with: 'wrong_password'
     click_button 'Login'
 
-    expect(page).to have_text 'Invalid email or password'
+    expect(page).to have_text 'Invalid credentials'
     expect(page).to have_button 'Login'
   end
 

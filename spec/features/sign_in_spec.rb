@@ -25,7 +25,7 @@ RSpec.feature 'Sign In', type: :feature do
     fill_in 'Password', with: 'wrong_password'
     click_button 'Login'
 
-    expect(page).to have_text 'Invalid email or password'
+    expect(page).to have_text 'Invalid credentials'
     expect(page).to have_text 'Login'
   end
 

@@ -76,4 +76,8 @@ RSpec.describe Spree::User, type: :model do
       expect(Spree::User.devise_modules).to_not include(:confirmable)
     end
   end
+
+  describe "otp password" do
+    it { expect(Spree::User.generate_otp_secret).to be_truthy }
+  end
 end

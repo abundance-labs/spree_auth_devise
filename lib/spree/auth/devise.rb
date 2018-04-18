@@ -1,6 +1,7 @@
 require 'spree/core'
 require 'devise'
 require 'devise-encryptable'
+require 'devise-two-factor'
 require 'cancan'
 
 Devise.secret_key = SecureRandom.hex(50)
@@ -16,5 +17,6 @@ module Spree
 end
 
 Spree::Auth.default_secret_key = Devise.secret_key
+Spree::PermittedAttributes.user_attributes.push(:otp_required_for_login, :otp_attempt)
 
 require 'spree/auth/engine'

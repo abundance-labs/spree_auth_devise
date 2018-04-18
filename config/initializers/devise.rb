@@ -1,6 +1,12 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
+  config.warden do |manager|
+    manager.default_strategies(:scope => :spree_user).unshift :two_factor_authenticatable
+  end
+
+  config.sign_in_after_reset_password = false
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = 'please-change-me@config-initializers-devise.com'
@@ -38,6 +44,7 @@ Devise.setup do |config|
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
   # using other encryptors, it sets how many times you want the password re-encrypted.
   config.stretches = 20
+  config.encryptor = :authlogic_sha512
 
   # Setup a pepper to generate the encrypted password.
   config.pepper = Rails.configuration.secret_token

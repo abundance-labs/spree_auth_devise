@@ -4,14 +4,17 @@ module Spree
     include UserMethods
     include UserPaymentSource
 
-    devise :database_authenticatable, :registerable, :recoverable,
-           :rememberable, :trackable, :validatable, :encryptable, encryptor: 'authlogic_sha512'
+    devise :two_factor_authenticatable, :registerable, :recoverable,
+           :rememberable, :trackable, :validatable,
+           otp_secret_encryption_key: ENV['OTP_SECRET']
     devise :confirmable if Spree::Auth::Config[:confirmable]
+    devise :encryptable, encryptor: 'authlogic_sha512'
 
     acts_as_paranoid
     after_destroy :scramble_email_and_password
 
     before_validation :set_login
+    before_save :assign_otp_secret, if: :otp_required_for_login_changed?
 
     users_table_name = User.table_name
     roles_table_name = Role.table_name
@@ -45,6 +48,10 @@ module Spree
       self.password = SecureRandom.hex(8)
       self.password_confirmation = password
       save
+    end
+
+    def assign_otp_secret
+      self.otp_secret = User.generate_otp_secret if otp_secret.blank?
     end
   end
 end

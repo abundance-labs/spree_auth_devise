@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start 'rails'
 
 ENV['RAILS_ENV'] ||= 'test'
+ENV['OTP_SECRET'] ||= '9c83b88256513c15eadf4b08b5dbac83a8c602954d9f577aa146368d6'
 
 require File.expand_path('../dummy/config/environment', __FILE__)
 
