@@ -23,7 +23,6 @@ class Spree::Admin::UserSessionsController < Devise::SessionsController
         }
       end
     else
-      Rails.logger.info "----------------------------------------------------- #{I18n.load_path.last(20)}"
       flash.now[:error] = t('devise.failure.invalid')
       render :new
     end
