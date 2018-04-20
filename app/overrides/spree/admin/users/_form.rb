@@ -12,6 +12,12 @@ Deface::Override.new(
             <label><%= Spree.t(:authenticator_qr_code) %></label>
             <br>
             <%= raw @qr_svg %>
+            <br>
+            <a href='https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8'>Download Google Authenticator for iOS</a>
+            <br>
+            <a href='https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_US'>Download Google Authenticator for Android</a>
+            <br>
+            Once 2FA is enabled, you can reach your login URL at: https://staging.public.market/dashboard/login
           <% end %>
         HTML
 )
