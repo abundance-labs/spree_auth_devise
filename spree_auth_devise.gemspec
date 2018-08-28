@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'coffee-rails', '~> 4.2'
   s.add_development_dependency 'database_cleaner', '~> 1.5'
   s.add_development_dependency 'email_spec', '~> 2.1'
-  s.add_development_dependency 'factory_bot', '~> 4.7'
+  s.add_development_dependency 'factory_bot'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'mysql2', '~> 0.3.18'
