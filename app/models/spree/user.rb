@@ -4,11 +4,12 @@ module Spree
     include UserMethods
     include UserPaymentSource
 
-    devise :two_factor_authenticatable, :registerable, :recoverable,
-           :rememberable, :trackable, :validatable,
+    devise :two_factor_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable,
            otp_secret_encryption_key: ENV['OTP_SECRET']
     devise :confirmable if Spree::Auth::Config[:confirmable]
     devise :encryptable, encryptor: 'authlogic_sha512'
+    devise :validatable if Spree::Auth::Config[:validatable]
 
     acts_as_paranoid
     after_destroy :scramble_email_and_password
